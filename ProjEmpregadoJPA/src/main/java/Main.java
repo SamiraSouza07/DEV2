@@ -251,6 +251,6 @@ public class Main {
 
             }
         }while (opcao!=0);
-
+        emp.encerrar();
     }
 }
