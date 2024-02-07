@@ -48,14 +48,14 @@ public class Principal {
 //            System.out.println(depart);
 //        }
 
-        String cidade = "NEW YORK";
-        Query query = em.createQuery("select dept4 from Departamento dept4 where dept4.loc = :local order by dept4.numDept");
-        query.setParameter("local",cidade);
-        List<Departamento> departamentos = query.getResultList();
-
-        for(Departamento depart :departamentos){
-            System.out.println(depart);
-        }
+//        String cidade = "NEW YORK";
+//        Query query = em.createQuery("select dept4 from Departamento dept4 where dept4.loc = :local order by dept4.numDept");
+//        query.setParameter("local",cidade);
+//        List<Departamento> departamentos = query.getResultList();
+//
+//        for(Departamento depart :departamentos){
+//            System.out.println(depart);
+//        }
 
 
 
