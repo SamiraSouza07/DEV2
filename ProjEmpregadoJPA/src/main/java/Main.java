@@ -17,27 +17,28 @@ public class Main {
             while (!opcaoValida) {
                 try {
                     System.out.print("\nEscolha uma opção: " +
-                            "\n[1] - Inserir empregados" +
-                            "\n[2] - Alterar nome" +
-                            "\n[3] - Alterar salário" +
-                            "\n[4] - Excluir empregado" +
-                            "\n[5] - Consultar todos os empregados" +
-                            "\n[6] - Buscar empregado pelo código" +
-                            "\n[7] - Buscar empregados pelo trabalho" +
+                            "\n[0] - Sair 🚶‍♂️" +
+                            "\n[1] - Inserir empregados ➕" +
+                            "\n[2] - Alterar nome 📝" +
+                            "\n[3] - Alterar salário 💵" +
+                            "\n[4] - Excluir empregado 👨‍💼" +
+                            "\n[5] - Consultar todos os empregados 👩‍💼👨‍🏭👩‍🍳👨‍⚖️" +
+                            "\n[6] - Buscar empregado pelo código 👩‍💼" +
+                            "\n[7] - Buscar empregados pelo trabalho 👩‍💼👨‍💼🧑‍💼" +
                             "\n--> ");
                     opcao = input.nextInt();
-                    if (opcao > 7 || opcao < 1) {
+                    if (opcao > 7 || opcao < 0) {
                         throw new Exception();
                     }
                     opcaoValida = true;
                 } catch (InputMismatchException i) {
-                    System.out.println("Digite apenas números");
+                    System.out.println("Digite apenas números 🔢");
                     opcaoValida = false;
                 } catch (Exception e) {
-                    System.out.println("Digite apenas números que estão no menu");
+                    System.out.println("Digite apenas números que estão no menu 🔢");
                     opcaoValida = false;
-                    input.nextLine();
                 }
+                input.nextLine();
             }
             switch (opcao){
                 case 1 -> {
@@ -51,7 +52,7 @@ public class Main {
                     Float comissao = 0.0F;
                     int departamento = 0;
                     System.out.println("----INSERIR EMPREGADO----");
-                    input.nextLine();
+                    //input.nextLine();
                     boolean codValido = false;
                     while (!codValido) {
                         try {
@@ -62,10 +63,10 @@ public class Main {
                             }
                             codValido = true;
                         } catch (InputMismatchException i) {
-                            System.out.println("Digite apenas números");
+                            System.out.println("Digite apenas números 🔢");
                             codValido = false;
                         }catch (Exception e){
-                            System.out.println("Digite um código positivo");
+                            System.out.println("Digite um código positivo ➕");
                         }
                         input.nextLine();
                     }
@@ -83,10 +84,10 @@ public class Main {
                             }
                             geranteValido = true;
                         } catch (InputMismatchException i) {
-                            System.out.println("Digite apenas números");
+                            System.out.println("Digite apenas números 🔢");
                             geranteValido = false;
                         }catch (Exception e){
-                            System.out.println("Digite um código positivo");
+                            System.out.println("Digite um código positivo ➕");
                         }
                         input.nextLine();
                     }
@@ -104,10 +105,10 @@ public class Main {
                             }
                             datValida = true;
                         } catch (InputMismatchException i) {
-                            System.out.println("Digite apenas números");
+                            System.out.println("Digite apenas números 🔢");
                             datValida = false;
                         }catch (Exception e){
-                            System.out.println("Digite apenas dias, meses e anos positivos");
+                            System.out.println("Digite apenas dias, meses e anos positivos ➕");
                         }
                         input.nextLine();
                     }
@@ -121,10 +122,10 @@ public class Main {
                             }
                             salarioValido = true;
                         } catch (InputMismatchException i) {
-                            System.out.println("Digite apenas números");
+                            System.out.println("Digite apenas números 💵");
                             salarioValido = false;
                         }catch (Exception e){
-                            System.out.println("Digite um salário positivo");
+                            System.out.println("Digite um salário positivo ➕");
                         }
                         input.nextLine();
                     }
@@ -138,10 +139,10 @@ public class Main {
                             }
                             comissaoValida = true;
                         } catch (InputMismatchException i) {
-                            System.out.println("Digite apenas números");
+                            System.out.println("Digite apenas números 🔢");
                             comissaoValida = false;
                         }catch (Exception e){
-                            System.out.println("Digite uma comissão positiva");
+                            System.out.println("Digite uma comissão positiva ➕");
                         }
                         input.nextLine();
                     }
@@ -155,24 +156,24 @@ public class Main {
                             }
                             departamentoValido = true;
                         } catch (InputMismatchException i) {
-                            System.out.println("Digite apenas números");
+                            System.out.println("Digite apenas números 🔢");
                             departamentoValido = false;
                         }catch (Exception e){
-                            System.out.println("Digite um departamento positivo");
+                            System.out.println("Digite um departamento positivo ➕");
                         }
                         input.nextLine();
                     }
-                    boolean inserir = emp.inserirEmp(codEmpr,nome.toUpperCase(), trabalho.toUpperCase(), gerente,new Date(dia,mes,ano), salario, comissao, departamento);
+                    boolean inserir = emp.inserirEmp(codEmpr,nome.toUpperCase(), trabalho.toUpperCase(), gerente,new Date(ano,mes,dia), salario, comissao, departamento);
                     if(inserir){
-                        System.out.println("Empregado inserido com sucesso");
+                        System.out.println("Empregado "+nome+" inserido com sucesso ✅");
                     }else{
-                        System.out.println("Erro ao inserir o empregado");
+                        System.out.println("Erro ao inserir o empregado ❌");
                     }
 
                 }
                 case 2 ->{
                     System.out.println("----ALTERAR NOME----");
-                    input.nextLine();
+                    //input.nextLine();
                     boolean codValido = false;
                     int codEmpr=0;
                     String nome;
@@ -183,27 +184,32 @@ public class Main {
                             if(codEmpr<0){
                                 throw new Exception();
                             }
+                            if(emp.buscarPorCod(codEmpr) == null){
+                                throw new NullPointerException();
+                            }
                             codValido = true;
                         } catch (InputMismatchException i) {
-                            System.out.println("Digite apenas números");
+                            System.out.println("Digite apenas números 🔢");
                             codValido = false;
+                        }catch (NullPointerException n){
+                            System.out.println("Não existe um empregado com este código ❌");
                         }catch (Exception e){
-                            System.out.println("Digite um código positivo");
+                            System.out.println("Digite um código positivo ➕");
                         }
                         input.nextLine();
                     }
-                    System.out.println("Digite o novo nome desse empregado: ");
+                    System.out.println("Digite o novo nome do empregado: ");
                     nome = input.nextLine();
                     boolean alterarNome = emp.alterarNome(codEmpr,nome);
                     if (alterarNome){
-                        System.out.println("Nome alterado com sucesso, ola! "+nome);
+                        System.out.println("Nome alterado com sucesso ✅, olá! "+nome);
                     }else{
-                        System.out.println("Erro ao alterar o nome");
+                        System.out.println("Erro ao alterar o nome ❌");
                     }
                 }
                 case 3 ->{
                     System.out.println("----ALTERAR SALÁRIO----");
-                    input.nextLine();
+                    //input.nextLine();
                     boolean codValido = false;
                     int codEmpr=0;
                     double salario=0;
@@ -214,12 +220,17 @@ public class Main {
                             if(codEmpr<0){
                                 throw new Exception();
                             }
+                            if(emp.buscarPorCod(codEmpr) == null){
+                                throw new NullPointerException();
+                            }
                             codValido = true;
                         } catch (InputMismatchException i) {
-                            System.out.println("Digite apenas números");
+                            System.out.println("Digite apenas números 🔢");
                             codValido = false;
+                        }catch (NullPointerException n){
+                            System.out.println("Não existe um empregado com este código ❌");
                         }catch (Exception e){
-                            System.out.println("Digite um código positivo");
+                            System.out.println("Digite um código positivo ➕");
                         }
                         input.nextLine();
                     }
@@ -233,22 +244,118 @@ public class Main {
                             }
                             salarioValido = true;
                         } catch (InputMismatchException i) {
-                            System.out.println("Digite apenas números");
+                            System.out.println("Digite apenas números 🔢");
                             salarioValido = false;
                         }catch (Exception e){
-                            System.out.println("Digite um salário positivo");
+                            System.out.println("Digite um salário positivo ➕");
                         }
                         input.nextLine();
                     }
                     boolean alterarSalario = emp.alterarSalario(codEmpr,salario);
                     if(alterarSalario){
-                        System.out.println("Salário alterado com sucesso");
+                        System.out.println("Salário alterado com sucesso ✅");
                     }else{
-                        System.out.println("Erro ao alterar salário");
+                        System.out.println("Erro ao alterar salário ❌");
                     }
 
                 }
+                case 4 ->{
+                    System.out.println("----EXCLUIR EMPREGADO----");
+                    boolean codValido = false;
+                    int codEmpr=0;
+                    while (!codValido) {
+                        try {
+                            System.out.println("Digite o código do empregado: ");
+                            codEmpr = input.nextInt();
+                            if(codEmpr<0){
+                                throw new Exception();
+                            }
+                            if(emp.buscarPorCod(codEmpr) == null){
+                                throw new NullPointerException();
+                            }
+                            codValido = true;
+                        } catch (InputMismatchException i) {
+                            System.out.println("Digite apenas números 🔢");
+                            codValido = false;
+                        }catch (NullPointerException n){
+                            System.out.println("Não existe um empregado com este código ❌");
+                        }catch (Exception e){
+                            System.out.println("Digite um código positivo ➕");
+                        }
+                        input.nextLine();
+                    }
+                    boolean simOuNao = false;
+                    while(!simOuNao){
+                        System.out.println("Deseja realmente excluir o empregado "+emp.buscarPorCod(codEmpr).getNome());
+                        System.out.print("(S/N)? --> ");
+                        String escolha = input.next();
+                        if(escolha.equalsIgnoreCase("N")){
+                            System.out.println("Ok");
+                            simOuNao = true;
+                        }else{
+                            if(escolha.equalsIgnoreCase("S")){
+                                boolean excluir = emp.excluirEmp(codEmpr);
+                                simOuNao = true;
+                                if (excluir){
+                                    System.out.println("O empregado foi excluido com sucesso ✅");
+                                }else {
+                                    System.out.println("Erro ao excluir empregado ❌");
+                                }
+                            }
+                            else{
+                                System.out.println("Opção inválida ❌");
+                            }
+                        }
 
+                    }
+                }
+                case 5 ->{
+                    System.out.println("----CONSULTAR TODOS OS EMPREGADOS----");
+                    List empregados = emp.consultarTodos();
+                    for (Object empregado:empregados){
+                        System.out.println("\n"+empregado);
+                    }
+                }
+                case 6 ->{
+                    System.out.println("----BUSCAR EMPREGADO PELO CÓDIGO----");
+                    boolean codValido = false;
+                    int codEmpr=0;
+                    while (!codValido) {
+                        try {
+                            System.out.println("Digite o código do empregado: ");
+                            codEmpr = input.nextInt();
+                            if(codEmpr<0){
+                                throw new Exception();
+                            }
+                            if(emp.buscarPorCod(codEmpr) == null){
+                                throw new NullPointerException();
+                            }
+                            codValido = true;
+                        } catch (InputMismatchException i) {
+                            System.out.println("Digite apenas números 🔢");
+                            codValido = false;
+                        }catch (NullPointerException n){
+                            System.out.println("Não existe um empregado com este código ❌");
+                        }catch (Exception e){
+                            System.out.println("Digite um código positivo ➕");
+                        }
+                        input.nextLine();
+                    }
+                    Empregado emp1 = emp.buscarPorCod(codEmpr);
+                    System.out.println(emp1);
+                }
+                case 7 ->{
+                    System.out.println("----BUSCAR EMPREGADOS PELO TRABALHO----");
+                    System.out.println("Digite o trabalho dos clientes que você deseja procurar: ");
+                    String trabalho = input.nextLine();
+                    List empregados = emp.buscarPorTrabalho(trabalho);
+                    for(Object empregado:empregados){
+                        System.out.println("\n"+empregado);
+                    }
+                }
+                default ->{
+                    System.out.println("Encerrando o programa 🏃‍♂️...");
+                }
             }
         }while (opcao!=0);
         emp.encerrar();

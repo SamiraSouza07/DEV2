@@ -37,6 +37,7 @@ public class EmpregadoDAO {
     }
     public boolean alterarNome(int codEmpr, String nome){
         EntityManager em = emf.createEntityManager();
+        nome = nome.toUpperCase();
         try {
             em.getTransaction().begin();
             Empregado emp1 = em.find(Empregado.class, codEmpr);
@@ -125,4 +126,6 @@ public class EmpregadoDAO {
             em.close();
         }
     }
+
+
 }
