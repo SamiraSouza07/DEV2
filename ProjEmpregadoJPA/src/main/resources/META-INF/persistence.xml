@@ -5,6 +5,7 @@
              version="3.0">
     <persistence-unit name="default">
         <class>Empregado</class>
+        <class>Departamento</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.connection.url" value="jdbc:postgresql://kesavan.db.elephantsql.com:5432/vzjzymbp"/>

@@ -1,6 +1,4 @@
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -9,8 +7,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args){
         EmpregadoDAO emp = new EmpregadoDAO();
+        DepartamentoDAO dept = new DepartamentoDAO();
         Scanner input = new Scanner(System.in);
         emp.iniciar();
+        dept.iniciar();
+
         int opcao = 1;
         do {
             boolean opcaoValida = false;
@@ -33,10 +34,8 @@ public class Main {
                     opcaoValida = true;
                 } catch (InputMismatchException i) {
                     System.out.println("Digite apenas números 🔢");
-                    opcaoValida = false;
                 } catch (Exception e) {
                     System.out.println("Digite apenas números que estão no menu 🔢");
-                    opcaoValida = false;
                 }
                 input.nextLine();
             }
@@ -52,7 +51,6 @@ public class Main {
                     Float comissao = 0.0F;
                     int departamento = 0;
                     System.out.println("----INSERIR EMPREGADO----");
-                    //input.nextLine();
                     boolean codValido = false;
                     while (!codValido) {
                         try {
@@ -61,10 +59,14 @@ public class Main {
                             if(codEmpr<0){
                                 throw new Exception();
                             }
+                            if(emp.buscarPorCod(codEmpr) != null){
+                                throw new RuntimeException();
+                            }
                             codValido = true;
                         } catch (InputMismatchException i) {
                             System.out.println("Digite apenas números 🔢");
-                            codValido = false;
+                        }catch(RuntimeException r){
+                            System.out.println("Já existe um empregado com este código ❌");
                         }catch (Exception e){
                             System.out.println("Digite um código positivo ➕");
                         }
@@ -77,16 +79,30 @@ public class Main {
                     boolean geranteValido = false;
                     while (!geranteValido) {
                         try {
-                            System.out.println("Digite código do gerente: ");
+                            System.out.println("Digite o código do gerente abaixo");
+                            System.out.println("-----GERENTES-----");
+                            List empregados = emp.consultarTodosCodigos();
+                            for(Object cod :empregados){
+                                System.out.println("Cód.: "+cod+" Nome: "+emp.buscarPorCod((Integer) cod).getNome());
+                            }
+                            System.out.println("Código do gerente: ");
                             gerente = input.nextFloat();
                             if(gerente<0){
                                 throw new Exception();
                             }
+                            DecimalFormat deci = new DecimalFormat("0");
+                            String verifGerente = deci.format(gerente);
+                            int codGerente = Integer.parseInt(verifGerente);
+                            if(emp.buscarPorCod(codGerente) == null){
+                                throw new RuntimeException();
+                            }
                             geranteValido = true;
                         } catch (InputMismatchException i) {
                             System.out.println("Digite apenas números 🔢");
-                            geranteValido = false;
-                        }catch (Exception e){
+                        }catch(RuntimeException r){
+                            System.out.println("Não existe um gerente com este código ❌");
+                        }
+                        catch (Exception e){
                             System.out.println("Digite um código positivo ➕");
                         }
                         input.nextLine();
@@ -106,7 +122,6 @@ public class Main {
                             datValida = true;
                         } catch (InputMismatchException i) {
                             System.out.println("Digite apenas números 🔢");
-                            datValida = false;
                         }catch (Exception e){
                             System.out.println("Digite apenas dias, meses e anos positivos ➕");
                         }
@@ -122,8 +137,7 @@ public class Main {
                             }
                             salarioValido = true;
                         } catch (InputMismatchException i) {
-                            System.out.println("Digite apenas números 💵");
-                            salarioValido = false;
+                            System.out.println("Digite apenas números 🔢");
                         }catch (Exception e){
                             System.out.println("Digite um salário positivo ➕");
                         }
@@ -140,7 +154,6 @@ public class Main {
                             comissaoValida = true;
                         } catch (InputMismatchException i) {
                             System.out.println("Digite apenas números 🔢");
-                            comissaoValida = false;
                         }catch (Exception e){
                             System.out.println("Digite uma comissão positiva ➕");
                         }
@@ -149,16 +162,27 @@ public class Main {
                     boolean departamentoValido = false;
                     while (!departamentoValido) {
                         try {
-                            System.out.println("Digite o código do departamento do empregado: ");
+                            System.out.println("Digite o código do departamento do empregado abaixo");
+                            System.out.println("----DEPARTAMENTOS----");
+                            List depts = dept.consultarDept();
+                            for(Object de:depts){
+                                System.out.println(de);
+                            }
+                            System.out.println("Código do departamento: ");
                             departamento = input.nextInt();
                             if(departamento < 0){
                                 throw new Exception();
                             }
+                            if(dept.buscarPorCod(departamento) == null){
+                                throw new RuntimeException();
+                            }
                             departamentoValido = true;
                         } catch (InputMismatchException i) {
                             System.out.println("Digite apenas números 🔢");
-                            departamentoValido = false;
-                        }catch (Exception e){
+                        }catch(RuntimeException r){
+                            System.out.println("Não há um departamento com este código ❌");
+                        }
+                        catch (Exception e){
                             System.out.println("Digite um departamento positivo ➕");
                         }
                         input.nextLine();
@@ -190,7 +214,6 @@ public class Main {
                             codValido = true;
                         } catch (InputMismatchException i) {
                             System.out.println("Digite apenas números 🔢");
-                            codValido = false;
                         }catch (NullPointerException n){
                             System.out.println("Não existe um empregado com este código ❌");
                         }catch (Exception e){
@@ -226,7 +249,6 @@ public class Main {
                             codValido = true;
                         } catch (InputMismatchException i) {
                             System.out.println("Digite apenas números 🔢");
-                            codValido = false;
                         }catch (NullPointerException n){
                             System.out.println("Não existe um empregado com este código ❌");
                         }catch (Exception e){
@@ -245,7 +267,6 @@ public class Main {
                             salarioValido = true;
                         } catch (InputMismatchException i) {
                             System.out.println("Digite apenas números 🔢");
-                            salarioValido = false;
                         }catch (Exception e){
                             System.out.println("Digite um salário positivo ➕");
                         }
@@ -276,7 +297,6 @@ public class Main {
                             codValido = true;
                         } catch (InputMismatchException i) {
                             System.out.println("Digite apenas números 🔢");
-                            codValido = false;
                         }catch (NullPointerException n){
                             System.out.println("Não existe um empregado com este código ❌");
                         }catch (Exception e){
@@ -333,7 +353,6 @@ public class Main {
                             codValido = true;
                         } catch (InputMismatchException i) {
                             System.out.println("Digite apenas números 🔢");
-                            codValido = false;
                         }catch (NullPointerException n){
                             System.out.println("Não existe um empregado com este código ❌");
                         }catch (Exception e){
@@ -348,7 +367,7 @@ public class Main {
                     System.out.println("----BUSCAR EMPREGADOS PELO TRABALHO----");
                     System.out.println("Digite o trabalho dos clientes que você deseja procurar: ");
                     String trabalho = input.nextLine();
-                    List empregados = emp.buscarPorTrabalho(trabalho);
+                    List<Empregado> empregados = emp.buscarPorTrabalho(trabalho);
                     for(Object empregado:empregados){
                         System.out.println("\n"+empregado);
                     }
@@ -358,6 +377,7 @@ public class Main {
                 }
             }
         }while (opcao!=0);
+        dept.encerrar();
         emp.encerrar();
     }
 }

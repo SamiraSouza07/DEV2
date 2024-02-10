@@ -127,5 +127,21 @@ public class EmpregadoDAO {
         }
     }
 
+    public List consultarTodosCodigos(){
+        EntityManager em = emf.createEntityManager();
+        try {
+            Query query = em.createQuery("select codEmpr from Empregado emp");
+            List<Empregado> empregados = query.getResultList();
+            return empregados;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }finally {
+            em.close();
+        }
+    }
+
+
+
 
 }

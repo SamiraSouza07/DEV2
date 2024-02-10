@@ -1,5 +1,7 @@
 import jakarta.persistence.*;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -111,9 +113,36 @@ public class Empregado {
 
     @Override
     public String toString() {
+        DecimalFormat deci = new DecimalFormat("0");
+        DecimalFormat deci2 = new DecimalFormat("0,000.00");
+        DecimalFormat deci3 = new DecimalFormat("000.00");
+        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+        String novaComissao;
+        String novoSalario;
+        if(this.salario > 999){
+            novoSalario ="R$"+deci2.format(this.salario);
+        }
+        else{
+            novoSalario="R$"+deci3.format(this.salario);
+        }
+        if(this.comissao == null || this.comissao == 0){
+            novaComissao = "Sem comissão";
+        }
+        else if(this.comissao > 999){
+            novaComissao = "R$"+deci2.format(this.comissao);
+        }else{
+            novaComissao = "R$"+deci3.format(this.comissao);
+        }
+        String novoGerente;
+        if(this.gerente == null){
+            novoGerente = "Sem gerente";
+        }
+        else{
+            novoGerente = deci.format(this.gerente);
+        }
         return "Código empregado: "+this.codEmpr+"\nNome: "+this.nome+"\nTrabalho: "+this.trabalho
-                +"\nGerente: "+this.gerente+"\nData de contratação: "+this.contratacao
-                +"\nSalário: "+this.salario+"\nComissão: "+this.comissao+"\nCódigo departamento: "+this.departamento;
+                +"\nGerente: "+novoGerente+"\nData de contratação: "+data.format(this.contratacao)
+                +"\nSalário: "+novoSalario+"\nComissão: "+novaComissao+"\nCódigo departamento: "+this.departamento;
     }
 
 
