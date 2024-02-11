@@ -232,7 +232,6 @@ public class Main {
                 }
                 case 3 ->{
                     System.out.println("----ALTERAR SALÁRIO----");
-                    //input.nextLine();
                     boolean codValido = false;
                     int codEmpr=0;
                     double salario=0;

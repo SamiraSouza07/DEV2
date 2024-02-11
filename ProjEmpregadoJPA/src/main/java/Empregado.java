@@ -115,7 +115,7 @@ public class Empregado {
     public String toString() {
         DecimalFormat deci = new DecimalFormat("0");
         DecimalFormat deci2 = new DecimalFormat("0,000.00");
-        DecimalFormat deci3 = new DecimalFormat("000.00");
+        DecimalFormat deci3 = new DecimalFormat("0.00");
         SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
         String novaComissao;
         String novoSalario;
