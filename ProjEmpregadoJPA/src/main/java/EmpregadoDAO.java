@@ -1,7 +1,5 @@
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.Query;
+import jakarta.persistence.*;
+import org.hibernate.exception.ConstraintViolationException;
 
 import java.util.Date;
 import java.util.List;
@@ -24,11 +22,10 @@ public class EmpregadoDAO {
             emp1.setSalario(salario);
             emp1.setComissao(comissao);
             emp1.setDepartamento(departamento);
-            //Empregado emp1 = new Empregado(codEmpr,nome,trabalho,gerente,contratacao,salario,comissao,departamento);
             em.persist(emp1);
             em.getTransaction().commit();
             return true;
-        }catch (Exception e){
+        }catch(Exception e){
             e.printStackTrace();
             return false;
         }finally {

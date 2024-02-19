@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
+        //Criando os
         EmpregadoDAO emp = new EmpregadoDAO();
         DepartamentoDAO dept = new DepartamentoDAO();
         Scanner input = new Scanner(System.in);
@@ -114,8 +115,10 @@ public class Main {
                             dia = input.nextInt();
                             System.out.println("Digite o mês de contratação: ");
                             mes = input.nextInt();
+                            mes -= 1;
                             System.out.println("Digite o ano de contratação: ");
                             ano = input.nextInt();
+                            ano -= 1900;
                             if( dia<0 ||mes<0||ano<0){
                                 throw new Exception();
                             }
