@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 public class MetodosInput {
     public int verificaId(Scanner input){
@@ -12,11 +13,11 @@ public class MetodosInput {
         while (!codValido) {
             try {
                 System.out.println("Digite o código do empregado: ");
+                codEmpr = input.nextInt();
                 String codString = String.valueOf(codEmpr);
                 if(codString.length() != 4){
                     throw new NumberFormatException();
                 }
-                codEmpr = input.nextInt();
                 if(codEmpr<0){
                     throw new Exception();
                 }
@@ -89,6 +90,10 @@ public class MetodosInput {
             try {
                 System.out.println("Digite o código do departamento do empregado: ");
                 departamento = input.nextInt();
+                String departamentoVerificado = String.valueOf(departamento);
+                if(departamentoVerificado.length() != 2){
+                    throw new RuntimeException();
+                }
                 if(departamento < 0){
                     throw new Exception();
                 }
@@ -96,7 +101,7 @@ public class MetodosInput {
             } catch (InputMismatchException i) {
                 System.out.println("Digite apenas números 🔢");
             }catch(RuntimeException r){
-                System.out.println("Não há um departamento com este código ❌");
+                System.out.println("O código do departamente deve ter somente dois números ❌");
             }
             catch (Exception e){
                 System.out.println("Digite um departamento positivo ➕");
@@ -134,32 +139,77 @@ public class MetodosInput {
             }catch (Exception e){
                 System.out.println("Digite apenas dias, meses e anos positivos ➕");
             }
-            input.nextLine();
+            //input.nextLine();
         }
         return data;
     }
 
-    public Float verificarGerente(Scanner input){
+    public Float verificarGerente(Scanner input, int codEmpr){
         boolean geranteValido = false;
         Float gerente =0.0F;
         while (!geranteValido) {
             try {
                 System.out.println("Digite o código do gerente: ");
                 gerente = input.nextFloat();
+                if(gerente < 999 || gerente >9999){
+                    throw new RuntimeException();
+                }
+                if(gerente==codEmpr){
+                    throw new NullPointerException();
+                }
                 if(gerente<0){
                     throw new Exception();
                 }
                 geranteValido = true;
-            } catch (InputMismatchException i) {
+            }catch(NullPointerException n) {
+                System.out.println("Você não pode ser seu próprio gerente ❌");
+            }catch (InputMismatchException i) {
                 System.out.println("Digite apenas números 🔢");
             }catch(RuntimeException r){
-                System.out.println("Não existe um gerente com este código ❌");
-            }
-            catch (Exception e){
+                System.out.println("O código do gerente deve ter quatro números ❌");
+            }catch (Exception e){
                 System.out.println("Digite um código positivo ➕");
             }
-            input.nextLine();
+            //input.nextLine();
         }
         return gerente;
+    }
+
+    public String verificarNome(Scanner input){
+        boolean nomeValido = false;
+        String nome =" ";
+        while (!nomeValido) {
+            try {
+                System.out.println("Digite o nome do empregado: ");
+                nome = input.nextLine();
+                if(nome.length() < 3 || nome.length() > 10){
+                    throw new Exception();
+                }
+                nomeValido = true;
+            }catch (Exception e){
+                System.out.println("O nome deve ser maior que dois caracteres e menor que 11 ❌");
+            }
+            //input.nextLine();
+        }
+        return nome;
+    }
+
+    public String verificarTrabalho(Scanner input){
+        boolean trabalhoValido = false;
+        String trabalho =" ";
+        while (!trabalhoValido) {
+            try {
+                System.out.println("Digite o trabalho do empregado: ");
+                trabalho = input.nextLine();
+                if(trabalho.length() < 3 || trabalho.length() > 9){
+                    throw new Exception();
+                }
+                trabalhoValido = true;
+            }catch (Exception e){
+                System.out.println("O trabalho deve ser maior que dois caracteres e menor que 10 ❌");
+            }
+            //input.nextLine();
+        }
+        return trabalho;
     }
 }

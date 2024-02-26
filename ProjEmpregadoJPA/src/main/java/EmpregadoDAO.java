@@ -25,14 +25,14 @@ public class EmpregadoDAO {
             em.persist(emp1);
             em.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch(Exception e){
             e.printStackTrace();
             return false;
         }finally {
             em.close();
         }
     }
-    public boolean alterarNome(int codEmpr, String nome){
+    public int alterarNome(int codEmpr, String nome){
         EntityManager em = emf.createEntityManager();
         nome = nome.toUpperCase();
         try {
@@ -40,42 +40,48 @@ public class EmpregadoDAO {
             Empregado emp1 = em.find(Empregado.class, codEmpr);
             emp1.setNome(nome);
             em.getTransaction().commit();
-            return true;
-        }catch (Exception e){
+            return 1;
+        }catch(NullPointerException n){
+            return 2;
+        }
+        catch (Exception e){
             e.printStackTrace();
-            return false;
+            return -1;
         }finally {
             em.close();
         }
     }
-    public boolean alterarSalario(int codEmpr, double salario){
+    public int alterarSalario(int codEmpr, double salario){
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             Empregado emp1 = em.find(Empregado.class, codEmpr);
             emp1.setSalario(salario);
             em.getTransaction().commit();
-            return true;
+            return 1;
+        }catch(NullPointerException n){
+            return 2;
         }catch (Exception e){
             e.printStackTrace();
-            return false;
+            return -1;
         }finally {
             em.close();
         }
     }
 
 
-    public boolean excluirEmp(int codEmpr){
+    public int excluirEmp(int codEmpr){
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            Empregado emp1 = em.find(Empregado.class, codEmpr);
-            em.remove(emp1);
+            em.remove(codEmpr);
             em.getTransaction().commit();
-            return true;
-        }catch (Exception e){
+            return 1;
+        }catch(IllegalArgumentException n){
+            return 0;
+        } catch (Exception e){
             e.printStackTrace();
-            return false;
+            return -1;
         }finally {
             em.close();
         }

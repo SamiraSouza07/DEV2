@@ -47,6 +47,7 @@ public class Main {
                     //declaração de variaveis
                     int codEmpr = 0;
                     String nome;
+                    String trabalho;
                     Float gerente = 0.0F;
                     double salario = 0;
                     Float comissao = 0.0F;
@@ -55,11 +56,9 @@ public class Main {
                     //input das informações
                     System.out.println("----INSERIR EMPREGADO----");
                     codEmpr = metodo.verificaId(input);
-                    System.out.println("Digite o nome do empregado: ");
-                    nome = input.nextLine();
-                    System.out.println("Digite o trabalho do empregado: ");
-                    String trabalho = input.nextLine();
-                    gerente = metodo.verificarGerente(input);
+                    nome = metodo.verificarNome(input);
+                    trabalho = metodo.verificarTrabalho(input);
+                    gerente = metodo.verificarGerente(input,codEmpr);
                     int[] data= metodo.verificarData(input);
                     salario = metodo.verificarSalario(input);
                     comissao = metodo.verificarComissao(input);
@@ -81,12 +80,14 @@ public class Main {
                     int codEmpr=0;
                     String nome;
                     codEmpr = metodo.verificaId(input);
-                    System.out.println("Digite o novo nome do empregado: ");
-                    nome = input.nextLine();
-                    boolean alterarNome = emp.alterarNome(codEmpr,nome);
-                    if (alterarNome){
+                    nome = metodo.verificarNome(input);
+                    int alterarNome = emp.alterarNome(codEmpr,nome);
+                    if (alterarNome==1){
                         System.out.println("Nome alterado com sucesso ✅, olá! "+nome);
-                    }else{
+                    }else if(alterarNome == 2){
+                        System.out.println("Este empregado não existe ❌");
+                    }
+                    else{
                         System.out.println("Erro ao alterar o nome ❌");
                     }
                 }
@@ -97,34 +98,37 @@ public class Main {
                     double salario=0;
                     codEmpr = metodo.verificaId(input);
                     salario = metodo.verificarSalario(input);
-                    boolean alterarSalario = emp.alterarSalario(codEmpr,salario);
-                    if(alterarSalario){
+                    int alterarSalario = emp.alterarSalario(codEmpr,salario);
+                    if(alterarSalario==1){
                         System.out.println("Salário alterado com sucesso ✅");
-                    }else{
+                    }else if(alterarSalario==2){
+                        System.out.println("Este empregado não existe ❌");
+                    }
+                    else{
                         System.out.println("Erro ao alterar salário ❌");
                     }
 
                 }
                 case 4 ->{
                     System.out.println("----EXCLUIR EMPREGADO----");
-                    boolean codValido = false;
                     int codEmpr=0;
                     codEmpr = metodo.verificaId(input);
                     boolean simOuNao = false;
                     while(!simOuNao){
-                        System.out.println("Deseja realmente excluir o empregado "+emp.buscarPorCod(codEmpr).getNome());
-                        System.out.print("(S/N)? --> ");
+                        System.out.println("Deseja realmente excluir o empregado este empregado (S/N)? --> ");
                         String escolha = input.next();
                         if(escolha.equalsIgnoreCase("N")){
                             System.out.println("Ok");
                             simOuNao = true;
                         }else{
                             if(escolha.equalsIgnoreCase("S")){
-                                boolean excluir = emp.excluirEmp(codEmpr);
+                                int excluir = emp.excluirEmp(codEmpr);
                                 simOuNao = true;
-                                if (excluir){
-                                    System.out.println("O empregado foi excluido com sucesso ✅");
-                                }else {
+                                if (excluir == 1){
+                                    System.out.println("Empregado removido com sucesso ✅");
+                                }else if(excluir==0){
+                                    System.out.println("Este empregado não existe ou ele é gestor de alguêm ❌");
+                                }else if(excluir==-1){
                                     System.out.println("Erro ao excluir empregado ❌");
                                 }
                             }
@@ -144,11 +148,14 @@ public class Main {
                 }
                 case 6 ->{
                     System.out.println("----BUSCAR EMPREGADO PELO CÓDIGO----");
-                    boolean codValido = false;
                     int codEmpr=0;
                     codEmpr = metodo.verificaId(input);
                     Empregado emp1 = emp.buscarPorCod(codEmpr);
-                    System.out.println(emp1);
+                    if(emp1 == null){
+                        System.out.println("Este empregado não existe ❌");
+                    }else {
+                        System.out.println(emp1);
+                    }
                 }
                 case 7 ->{
                     System.out.println("----BUSCAR EMPREGADOS PELO TRABALHO----");
