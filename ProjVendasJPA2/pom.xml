@@ -23,12 +23,14 @@
             <artifactId>jakarta.persistence-api</artifactId>
             <version>3.2.0-M1</version>
         </dependency>
+<!--         https://mvnrepository.com/artifact/org.postgresql/postgresql-->
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.7.1</version>
+            <version>42.7.2</version>
         </dependency>
+
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>

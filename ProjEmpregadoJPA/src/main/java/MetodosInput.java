@@ -2,9 +2,7 @@ import org.hibernate.dialect.function.LengthFunction;
 
 import java.text.DecimalFormat;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
 
 public class MetodosInput {
     public int verificaId(Scanner input){
@@ -25,7 +23,7 @@ public class MetodosInput {
             } catch (InputMismatchException i) {
                 System.out.println("Digite apenas números 🔢");
             }catch(NumberFormatException r){
-                System.out.println("O código do empregado deve ter quatro digitos ❌");
+                System.out.println("O código do empregado deve ter 4 digitos ❌");
             }catch (Exception e){
                 System.out.println("Digite um código positivo ➕");
             }
@@ -101,7 +99,7 @@ public class MetodosInput {
             } catch (InputMismatchException i) {
                 System.out.println("Digite apenas números 🔢");
             }catch(RuntimeException r){
-                System.out.println("O código do departamente deve ter somente dois números ❌");
+                System.out.println("O código do departamente deve ter somente 2 números ❌");
             }
             catch (Exception e){
                 System.out.println("Digite um departamento positivo ➕");
@@ -166,7 +164,7 @@ public class MetodosInput {
             }catch (InputMismatchException i) {
                 System.out.println("Digite apenas números 🔢");
             }catch(RuntimeException r){
-                System.out.println("O código do gerente deve ter quatro números ❌");
+                System.out.println("O código do gerente deve ter 4 números ❌");
             }catch (Exception e){
                 System.out.println("Digite um código positivo ➕");
             }
@@ -187,7 +185,7 @@ public class MetodosInput {
                 }
                 nomeValido = true;
             }catch (Exception e){
-                System.out.println("O nome deve ser maior que dois caracteres e menor que 11 ❌");
+                System.out.println("O nome deve ser maior que 2 caracteres e menor que 11 ❌");
             }
             //input.nextLine();
         }
@@ -206,7 +204,7 @@ public class MetodosInput {
                 }
                 trabalhoValido = true;
             }catch (Exception e){
-                System.out.println("O trabalho deve ser maior que dois caracteres e menor que 10 ❌");
+                System.out.println("O trabalho deve ser maior que 2 caracteres e menor que 10 ❌");
             }
             //input.nextLine();
         }

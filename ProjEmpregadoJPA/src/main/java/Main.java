@@ -1,4 +1,3 @@
-import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -11,10 +10,11 @@ public class Main {
         DepartamentoDAO dept = new DepartamentoDAO();
         MetodosInput metodo = new MetodosInput();
         Scanner input = new Scanner(System.in);
+        //iniciando objetos
         emp.iniciar();
         dept.iniciar();
-
         int opcao = 1;
+        //do while do programa todo
         do {
             boolean opcaoValida = false;
             while (!opcaoValida) {
@@ -41,6 +41,7 @@ public class Main {
                 }
                 input.nextLine();
             }
+            //switch para as opções do menu
             switch (opcao){
                 //case para inserir empregado
                 case 1 -> {
@@ -65,11 +66,14 @@ public class Main {
                     departamento = metodo.verificarDepartamento(input);
 
                     //inserindo empregado
-                    boolean inserir = emp.inserirEmp(codEmpr,nome.toUpperCase(), trabalho.toUpperCase(), gerente,new Date(data[0],data[1],data[2]), salario, comissao, departamento);
+                    int inserir = emp.inserirEmp(codEmpr,nome.toUpperCase(), trabalho.toUpperCase(), gerente,new Date(data[0],data[1],data[2]), salario, comissao, departamento);
                     //if para ver se deu certo
-                    if(inserir){
+                    if(inserir==1){
                         System.out.println("Empregado "+nome+" inserido com sucesso ✅");
-                    }else{
+                    }else if(inserir==2){
+                        System.out.println("O gerente ou o departamento que você digitou, não existe ❌");
+                    }
+                    else{
                         System.out.println("Erro ao inserir o empregado ❌");
                     }
 
@@ -77,11 +81,15 @@ public class Main {
                 //case para alterar o nome do empregado
                 case 2 ->{
                     System.out.println("----ALTERAR NOME----");
+                    //declarendo variaveis
                     int codEmpr=0;
                     String nome;
+                    //input das informações
                     codEmpr = metodo.verificaId(input);
                     nome = metodo.verificarNome(input);
+                    //alterando nome
                     int alterarNome = emp.alterarNome(codEmpr,nome);
+                    //if para ver se deu certo
                     if (alterarNome==1){
                         System.out.println("Nome alterado com sucesso ✅, olá! "+nome);
                     }else if(alterarNome == 2){
@@ -91,14 +99,18 @@ public class Main {
                         System.out.println("Erro ao alterar o nome ❌");
                     }
                 }
+                //case para alterar o salário do empregado
                 case 3 ->{
                     System.out.println("----ALTERAR SALÁRIO----");
-                    boolean codValido = false;
+                    //declarando variaveis
                     int codEmpr=0;
                     double salario=0;
+                    //input das informações
                     codEmpr = metodo.verificaId(input);
                     salario = metodo.verificarSalario(input);
+                    //alterando o salario
                     int alterarSalario = emp.alterarSalario(codEmpr,salario);
+                    //if para ver se deu certo
                     if(alterarSalario==1){
                         System.out.println("Salário alterado com sucesso ✅");
                     }else if(alterarSalario==2){
@@ -109,11 +121,15 @@ public class Main {
                     }
 
                 }
+                //case para excluir o empregado
                 case 4 ->{
                     System.out.println("----EXCLUIR EMPREGADO----");
+                    //declarando variavel
                     int codEmpr=0;
+                    //input da informação
                     codEmpr = metodo.verificaId(input);
                     boolean simOuNao = false;
+                    //while para confirmar a exclusão
                     while(!simOuNao){
                         System.out.println("Deseja realmente excluir o empregado este empregado (S/N)? --> ");
                         String escolha = input.next();
@@ -122,6 +138,7 @@ public class Main {
                             simOuNao = true;
                         }else{
                             if(escolha.equalsIgnoreCase("S")){
+                                //excluindo empregado
                                 int excluir = emp.excluirEmp(codEmpr);
                                 simOuNao = true;
                                 if (excluir == 1){
@@ -139,6 +156,7 @@ public class Main {
 
                     }
                 }
+                //case para concultar todos os empregados
                 case 5 ->{
                     System.out.println("----CONSULTAR TODOS OS EMPREGADOS----");
                     List empregados = emp.consultarTodos();
@@ -146,6 +164,7 @@ public class Main {
                         System.out.println("\n"+empregado);
                     }
                 }
+                //case para buscar empregado pelo código
                 case 6 ->{
                     System.out.println("----BUSCAR EMPREGADO PELO CÓDIGO----");
                     int codEmpr=0;
@@ -157,20 +176,22 @@ public class Main {
                         System.out.println(emp1);
                     }
                 }
+                //case para buscar empregados pelo trabalho
                 case 7 ->{
                     System.out.println("----BUSCAR EMPREGADOS PELO TRABALHO----");
-                    System.out.println("Digite o trabalho dos clientes que você deseja procurar: ");
-                    String trabalho = input.nextLine();
+                    String trabalho = metodo.verificarTrabalho(input);
                     List<Empregado> empregados = emp.buscarPorTrabalho(trabalho);
                     for(Object empregado:empregados){
                         System.out.println("\n"+empregado);
                     }
                 }
+                //saindo do programa
                 default ->{
                     System.out.println("Encerrando o programa 🏃‍♂️...");
                 }
             }
         }while (opcao!=0);
+        //encerrando objetos
         dept.encerrar();
         emp.encerrar();
     }

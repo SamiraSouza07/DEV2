@@ -8,7 +8,7 @@ public class EmpregadoDAO {
     private static EntityManagerFactory emf;
     public void iniciar(){emf = Persistence.createEntityManagerFactory("default");}
     public void encerrar(){emf.close();}
-    public boolean inserirEmp(int codEmpr, String nome, String trabalho, Float gerente, Date contratacao,
+    public int inserirEmp(int codEmpr, String nome, String trabalho, Float gerente, Date contratacao,
                            double salario, Float comissao, int departamento){
         EntityManager em = emf.createEntityManager();
         try {
@@ -24,10 +24,10 @@ public class EmpregadoDAO {
             emp1.setDepartamento(departamento);
             em.persist(emp1);
             em.getTransaction().commit();
-            return true;
-        } catch(Exception e){
+            return 1;
+        }catch(Exception e){
             e.printStackTrace();
-            return false;
+            return -1;
         }finally {
             em.close();
         }

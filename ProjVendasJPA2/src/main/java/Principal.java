@@ -7,16 +7,15 @@ import java.util.List;
 import java.util.Queue;
 
 public class Principal {
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
-//            Persistence.createEntityManagerFactory("default");
 
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
     public static void main(String[] args){
         EntityManager em = emf.createEntityManager();
         //mostrar um registro
-//        em.getTransaction().begin();//iniciando a transação
-//        Departamento dept2 = em.find(Departamento.class,40);
-//        System.out.println(dept2);
-//        em.getTransaction().commit();//commitando a transação
+        em.getTransaction().begin();//iniciando a transação
+        Departamento dept2 = em.find(Departamento.class,20);
+        System.out.println(dept2);
+        em.getTransaction().commit();//commitando a transação
 
         //inserirndo
 //        Departamento dept1 = new Departamento();
@@ -57,7 +56,8 @@ public class Principal {
 //            System.out.println(depart);
 //        }
 
-
+    em.close();
+    emf.close();
 
     }
 }
