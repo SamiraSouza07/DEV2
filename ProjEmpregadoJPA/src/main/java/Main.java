@@ -144,9 +144,11 @@ public class Main {
                                 if (excluir == 1){
                                     System.out.println("Empregado removido com sucesso ✅");
                                 }else if(excluir==0){
-                                    System.out.println("Este empregado não existe ou ele é gestor de alguêm ❌");
+                                    System.out.println("Este empregado não existe ❌");
                                 }else if(excluir==-1){
                                     System.out.println("Erro ao excluir empregado ❌");
+                                }else if(excluir==2){
+                                    System.out.println("Este empregado é gestor de alguém, você não pode exclui-lo ❌");
                                 }
                             }
                             else{

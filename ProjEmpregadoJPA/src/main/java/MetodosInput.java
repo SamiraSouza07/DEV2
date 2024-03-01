@@ -33,10 +33,10 @@ public class MetodosInput {
     }
 
     public double verificarSalario(Scanner input){
-        DecimalFormat deci = new DecimalFormat("#.##");
+        DecimalFormat deci = new DecimalFormat("#.n##");
         boolean salarioValido = false;
         double salario =-1;
-        Double salarioFormatado =-1.0;
+        double salarioFormatado =-1.0;
         while (!salarioValido) {
             try {
                 System.out.println("Digite o salário do empregado: ");
@@ -47,6 +47,7 @@ public class MetodosInput {
                 String salarioString = deci.format(salario);
                 salarioFormatado = Double.valueOf(salarioString);
                 salarioValido = true;
+                System.out.println(salarioFormatado);
             }catch (InputMismatchException i) {
                 System.out.println("Digite apenas números 🔢");
             }catch (Exception e){

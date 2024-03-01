@@ -37,8 +37,8 @@ public class EmpregadoDAO {
         nome = nome.toUpperCase();
         try {
             em.getTransaction().begin();
-            Empregado emp1 = em.find(Empregado.class, codEmpr);
-            emp1.setNome(nome);
+            Empregado emp= em.find(Empregado.class, codEmpr);
+            emp.setNome(nome);
             em.getTransaction().commit();
             return 1;
         }catch(NullPointerException n){
@@ -55,8 +55,8 @@ public class EmpregadoDAO {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            Empregado emp1 = em.find(Empregado.class, codEmpr);
-            emp1.setSalario(salario);
+            Empregado emp = em.find(Empregado.class, codEmpr);
+            emp.setSalario(salario);
             em.getTransaction().commit();
             return 1;
         }catch(NullPointerException n){
@@ -74,12 +74,21 @@ public class EmpregadoDAO {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.remove(codEmpr);
-            em.getTransaction().commit();
-            return 1;
-        }catch(IllegalArgumentException n){
-            return 0;
-        } catch (Exception e){
+            Empregado emp = em.find(Empregado.class,codEmpr);
+            if(emp !=null) {
+                em.remove(emp);
+                em.getTransaction().commit();
+                return 1;
+            }else{
+                return 0;
+            }
+        }catch(PersistenceException r){
+            if(r.getCause().getCause() instanceof ConstraintViolationException){
+                return 2;
+            }else{
+                return -1;
+            }
+        }catch (Exception e){
             e.printStackTrace();
             return -1;
         }finally {
