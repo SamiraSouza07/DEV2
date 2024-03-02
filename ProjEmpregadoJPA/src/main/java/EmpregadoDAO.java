@@ -24,8 +24,17 @@ public class EmpregadoDAO {
             emp1.setDepartamento(departamento);
             em.persist(emp1);
             em.getTransaction().commit();
-            return 1;
-        }catch(Exception e){
+            return 1;}
+//        }catch(PersistenceException e){
+//            if(e.getCause().getCause() instanceof EntityExistsException){
+//                return 2;
+//            }else if(e.getCause().getCause() instanceof ConstraintViolationException){
+//                return 3;
+//            }else{
+//                return -1;
+//            }
+//        }
+        catch(Exception e){
             e.printStackTrace();
             return -1;
         }finally {

@@ -33,21 +33,20 @@ public class MetodosInput {
     }
 
     public double verificarSalario(Scanner input){
-        DecimalFormat deci = new DecimalFormat("#.n##");
+        DecimalFormat deci = new DecimalFormat("#.00");
         boolean salarioValido = false;
         double salario =-1;
-        double salarioFormatado =-1.0;
         while (!salarioValido) {
             try {
                 System.out.println("Digite o salário do empregado: ");
                 salario = input.nextDouble();
-                if(salario < 0 || salario >9999999.99){
+                if (salario < 0.00 || salario>9999999.99) {
                     throw new Exception();
                 }
                 String salarioString = deci.format(salario);
-                salarioFormatado = Double.valueOf(salarioString);
-                salarioValido = true;
-                System.out.println(salarioFormatado);
+                String formatada = salarioString.replace(',','.');
+                salario = Double.parseDouble(formatada);
+                salarioValido=true;
             }catch (InputMismatchException i) {
                 System.out.println("Digite apenas números 🔢");
             }catch (Exception e){
@@ -55,31 +54,31 @@ public class MetodosInput {
             }
             input.nextLine();
         }
-        return salarioFormatado;
+        return salario;
     }
     public Float verificarComissao(Scanner input){
-        DecimalFormat deci = new DecimalFormat("#.##");
+        DecimalFormat deci = new DecimalFormat("#.00");
         boolean comissaoValida = false;
         Float comissao = 0.0F;
-        Float comissaoFormatada = 0.0F;
         while (!comissaoValida) {
             try {
                 System.out.println("Digite a comissão do empregado: ");
                 comissao = input.nextFloat();
-                if(comissao < 0 || comissao >9999999.99){
+                if (comissao < 0.00 || comissao>9999999.99) {
                     throw new Exception();
                 }
-                String comissaoString = deci.format(comissao);
-                comissaoFormatada = Float.valueOf(comissaoString);
-                comissaoValida = true;
-            } catch (InputMismatchException i) {
+                String comissaoFormatada = deci.format(comissao);
+                String formatada = comissaoFormatada.replace(',','.');
+                comissao = Float.parseFloat(formatada);
+                comissaoValida=true;
+            }catch (InputMismatchException i) {
                 System.out.println("Digite apenas números 🔢");
             }catch (Exception e){
                 System.out.println("Digite uma comissão positiva e menor que um milhão ➕💵");
             }
-            input.nextLine();
+            //input.nextLine();
         }
-        return comissaoFormatada;
+        return comissao;
     }
 
     public int verificarDepartamento(Scanner input){
@@ -101,11 +100,10 @@ public class MetodosInput {
                 System.out.println("Digite apenas números 🔢");
             }catch(RuntimeException r){
                 System.out.println("O código do departamente deve ter somente 2 números ❌");
-            }
-            catch (Exception e){
+            }catch (Exception e){
                 System.out.println("Digite um departamento positivo ➕");
             }
-            input.nextLine();
+            //input.nextLine();
         }
         return departamento;
     }

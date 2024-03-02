@@ -71,7 +71,7 @@ public class Main {
                     if(inserir==1){
                         System.out.println("Empregado "+nome+" inserido com sucesso ✅");
                     }else if(inserir==2){
-                        System.out.println("O gerente ou o departamento que você digitou, não existe ❌");
+                        System.out.println("Ja existe um empregado com este código ❌");
                     }
                     else{
                         System.out.println("Erro ao inserir o empregado ❌");
