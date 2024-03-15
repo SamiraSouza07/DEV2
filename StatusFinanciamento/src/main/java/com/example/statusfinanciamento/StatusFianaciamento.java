@@ -20,12 +20,12 @@ public class StatusFianaciamento extends HttpServlet {
         double salarioBruto = Double.parseDouble(request.getParameter("salario-bruto"));
         double financiamento = Double.parseDouble(request.getParameter("financiamento"));
 
-        double salarioLiquido = metodos.calcularINSS(salarioBruto);
+        double salarioLiquido = metodos.calcularImpostos(salarioBruto);
         String statusFinanciamento = "";
         if(salarioLiquido*3 < financiamento){
-            statusFinanciamento= "Recusado";
+            statusFinanciamento= "Negado";
         }else{
-            statusFinanciamento="Autorizado";
+            statusFinanciamento="Liberado";
         }
 
         PrintWriter out = response.getWriter();
@@ -55,8 +55,9 @@ public class StatusFianaciamento extends HttpServlet {
         out.println("<h1>"+"Status do Financiamento"+"</h1>");
         out.println("<p>Nome do usuário: <strong>"+usuario+"</strong></p>");
         out.println("<p>Salário bruto: <strong>R$"+deci.format(salarioBruto)+"</strong></p>");
+        out.println("<p>Salário líquido: <strong>R$"+deci.format(salarioLiquido)+"</strong></p>");
         out.println("<p>Financiamento: <strong>R$"+deci.format(financiamento)+"</strong></p>");
-        if(statusFinanciamento.equalsIgnoreCase("Autorizado")){
+        if(statusFinanciamento.equalsIgnoreCase("Liberado")){
             out.println("<p>Status do financiamento: <strong id=\"verde\">"+statusFinanciamento+"</strong></p>");
         }else{
             out.println("<p>Status do financiamento: <strong id=\"vermelho\">"+statusFinanciamento+"</strong></p>");

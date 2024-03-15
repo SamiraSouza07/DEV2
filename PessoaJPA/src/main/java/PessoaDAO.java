@@ -33,8 +33,9 @@ public class PessoaDAO {
             if(pessoa!=null){
                 em.remove(pessoa);
                 em.getTransaction().commit();
-            }else{
                 return 1;
+            }else{
+                return 0;
             }
         }catch (PersistenceException p){
             if(p.getCause().getCause() instanceof ConstraintViolationException){
@@ -44,9 +45,8 @@ public class PessoaDAO {
             }
         }
         catch(NullPointerException n){
-            return 1;
+            return 0;
         }
-        return -1;
     }
 
     public int alterar(int id, String campo, String valorNovo){
