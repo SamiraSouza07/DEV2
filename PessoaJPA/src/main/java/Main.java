@@ -76,7 +76,7 @@ public class Main {
                 int id = input.nextInt();
                 System.out.print("Escolha a informação que você deseja alterar" +
                         "\n[1] - Nome" +
-                        "an[2] - Idade" +
+                        "\n[2] - Idade" +
                         "\n[3] - Altura" +
                         "\n[4] - Peso" +
                         "\n[5] - Gênero" +
@@ -87,6 +87,7 @@ public class Main {
                         "\n[10] - Esportes" +
                         "\n--> ");
                 int opcaoAlterar = input.nextInt();
+                input.nextLine();
                 System.out.println("Digite o novo valor do campo "+campos[opcaoAlterar-1]+": ");
                 String novoValor = input.nextLine();
                 int alterou = pessoa.alterar(id,campos[opcaoAlterar],novoValor);
