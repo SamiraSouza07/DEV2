@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            background-color: antiquewhite;
+            color: rgb(69, 4, 4);
+        }
+        label{
+            font-size: 20px;
+    
+        }
+        input{
+            background-color: aliceblue;
+            border-radius: 8px;
+        }
+        #botao{
+            background-color: rgb(31, 130, 31);
+            color: rgb(255, 240, 207);
+            padding: 5px 10px;
+        }
+        strong{
+            color: rgb(142, 68, 23);
+        }
+
+    </style>
+    <title>Exemplo de Formulário e Requisição JSON</title>
+</head>
+<body>
+    <h1>Exemplo de Formulário <strong>HTML</strong> com Requisição <strong>JSON</strong> para Servlet</h1>
+        <form id="formPessoa" action="http://localhost:8080/ServletPessoa_war_exploded/ServletPessoa">
+            <label for="nome"><strong>Nome</strong>: </label>
+            <input type="text" id="nome" name="nome" placeholder="Nome" required>
+            <br><br>
+            <label for="idade"><strong>Idade</strong>:</label>
+            <input type="number" id="idade" name="idade" placeholder="Idade" required>
+            <br><br>
+            <input type="submit" value="Enviar" id="botao">
+        </form>
+        <br>
+        <div id="response"></div>
+    </h1>
+</body>
+</html>

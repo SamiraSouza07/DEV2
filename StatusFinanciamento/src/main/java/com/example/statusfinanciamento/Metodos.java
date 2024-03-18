@@ -22,7 +22,7 @@ public class Metodos {
         double INSS = ((salarioBruto*aliquotaINSS)/100)-deducaoINSS;
         double descontoINSS = salarioBruto-INSS;
         if(descontoINSS<=2259.20){
-            aliquotaIRPF=1;
+            aliquotaIRPF=0;
             deducaoIRPF=0;
         }else if(descontoINSS>= 2259.20 && descontoINSS <=2826.65){
             aliquotaIRPF=7.5;
