@@ -13,29 +13,22 @@ import java.io.PrintWriter;
 public class ServletPessoa extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
+        response.setContentType("application/json");
         String nome = request.getParameter("nome");
         int idade = Integer.parseInt(request.getParameter("idade"));
         Pessoa pessoa = new Pessoa(nome,idade);
         Gson gson = new Gson();
         String json = gson.toJson(pessoa);
 
-        try {
-            FileWriter writer = new FileWriter("C:\\file.json");
-            writer.write(json);
-            writer.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>Servlet Pessoa</h1>");
-        out.println("<p>Nome: "+nome+"</p>");
-        out.println("<p>Idade:"+idade+"</p>");
-        out.println("<p>JSON: "+json+"</p>");
-        out.println("</body></html>");
+        out.println(json);
+//        out.println("<html><body>");
+//        out.println("<h1>Servlet Pessoa</h1>");
+//        out.println("<p>Nome: "+nome+"</p>");
+//        out.println("<p>Idade:"+idade+"</p>");
+//        out.println("<p>JSON: "+json+"</p>");
+//        out.println("</body></html>");
 
     }
     @Override
