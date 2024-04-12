@@ -1,0 +1,9 @@
+POST http://localhost:8080/api/produtos/inserir
+Content-Type: application/json
+
+{
+ "nome":"Asa de frango",
+ "descricao":"Produto para exportação",
+ "preco":15.90,
+ "quantidadeEstoque":150
+}
