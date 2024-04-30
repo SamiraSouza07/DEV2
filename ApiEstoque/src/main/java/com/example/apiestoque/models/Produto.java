@@ -1,4 +1,4 @@
-package com.example.apiestoque;
+package com.example.apiestoque.models;
 
 import jakarta.persistence.*;
 

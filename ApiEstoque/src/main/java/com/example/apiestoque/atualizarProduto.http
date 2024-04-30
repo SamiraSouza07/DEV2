@@ -1,9 +1,0 @@
-PUT http://localhost:8080/api/produtos/atualizar/22
-Content-Type: application/json
-
-{
- "nome": "Fraldinha",
- "descricao": "Carne adequada para churrasco",
- "preco": 39.8,
- "quantidadeEstoque": 150
-}
