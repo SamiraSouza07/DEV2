@@ -2,7 +2,10 @@ package com.example.apiestoque.service;
 
 import com.example.apiestoque.models.Produto;
 import com.example.apiestoque.repository.ProdutoRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,5 +37,11 @@ public class ProdutoService {
             return prod.get();
         }
         return null;
+    }
+    public List<Produto> buscarPorNome(String nome){
+        return produtoRepository.findByNomeLikeIgnoreCase(nome);
+    }
+    public List<Produto> buscarPorPrecoMenorIgual(double preco){
+        return produtoRepository.findByPrecoIsLessThanEqual(preco);
     }
 }
