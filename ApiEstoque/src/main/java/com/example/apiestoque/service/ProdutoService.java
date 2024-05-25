@@ -44,4 +44,7 @@ public class ProdutoService {
     public List<Produto> buscarPorPrecoMenorIgual(double preco){
         return produtoRepository.findByPrecoIsLessThanEqual(preco);
     }
+    public List<Produto> buscarPorPrecoMaiorIgual(double preco){
+        return produtoRepository.findByPrecoIsGreaterThanEqual(preco);
+    }
 }

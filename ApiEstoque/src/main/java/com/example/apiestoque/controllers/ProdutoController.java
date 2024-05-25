@@ -48,6 +48,15 @@ public class ProdutoController {
             return ResponseEntity.status(404).body("Não foi possível achar produtos com preço menor ou igual a "+preco);
         }
     }
+    @GetMapping("/selecionarProPrecoMaiorQue")
+    public ResponseEntity<?> listarProdutosPorPrecoMaiorQue(@RequestParam double preco){
+        List<Produto> listaProdutos = produtoService.buscarPorPrecoMaiorIgual(preco);
+        if(!listaProdutos.isEmpty()){
+            return ResponseEntity.status(201).body(listaProdutos);
+        }else{
+            return ResponseEntity.status(404).body("Não foi possível achar produtos com preço maior ou igual a "+preco);
+        }
+    }
 
     @PostMapping("/inserir")
     public ResponseEntity<String> inserirProduto(@RequestBody @Valid Produto produto, BindingResult resultado){
