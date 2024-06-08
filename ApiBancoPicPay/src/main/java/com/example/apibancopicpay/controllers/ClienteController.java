@@ -116,7 +116,7 @@ public class ClienteController {
                 return ResponseEntity.status(404).body("Este cpf não existe");
             }
         }
-        @PatchMapping("/atualizar/{id}")
+        @PatchMapping("/atualizar/{cpf}")
         public ResponseEntity<String> atualizarCliente(@PathVariable String cpf,
                                                               @RequestBody Map<String, Object> updates){
             Cliente clienteExistente = clienteService.buscarClientePorId(cpf);
