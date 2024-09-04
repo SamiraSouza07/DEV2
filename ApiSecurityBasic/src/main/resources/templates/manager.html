@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<style>
+    body {
+        background-color: antiquewhite;
+        text-align: center;
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+        color: rgb(39, 39, 39);
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    button {
+        color: aliceblue;
+        background-color: rgb(85, 139, 85);
+        margin-top: 10px;
+        width: 200px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 3px;
+        font-weight: bold;
+    }
+    button:hover {
+        background-color: rgb(75, 121, 75);
+    }
+    button:active {
+        background-color: rgb(48, 82, 48);
+    }
+
+</style>
+<body>
+    <h1>Bem vindo</h1>
+    <h3>Você é um usuário Manager :))))))</h3>
+    <form action="/logout" method="post">
+    <button type="submit">Logout</button>
+    </form>
+</body>
+</html>

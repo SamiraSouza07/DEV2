@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+  </head>
+  <style>
+    body {
+      background-color: antiquewhite;
+      text-align: center;
+      font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      color: rgb(39, 39, 39);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .entrada {
+      margin: 10px;
+    }
+    button {
+      color: aliceblue;
+      background-color: rgb(85, 139, 85);
+      margin-top: 10px;
+      width: 200px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      box-sizing: border-box;
+      border: none;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: rgb(75, 121, 75);
+    }
+    button:active {
+      background-color: rgb(48, 82, 48);
+    }
+    .erro {
+      color: brown;
+      font-weight: bold;
+    }
+    .logout {
+      color: rgb(45, 45, 195);
+      font-weight: bold;
+    }
+  </style>
+  <body>
+    <!-- logout -->
+    <h1>Login</h1>
+    <div class="logout" th:if="${param.logout}">
+      <p>Você não esta mais logado!</p>
+    </div>
+    <!-- error -->
+    <div class="erro" th:if="${param.error}">
+      <p>Usuário ou senha inválidos! Por favor, tente novamente</p>
+    </div>
+
+    <!-- formulário login -->
+    <form action="/perform_login" method="post">
+      <input
+        type="hidden"
+        name="${_csrf.parameterName}"
+        value="${_csrf.token}"
+      />
+      <div class="entrada">
+        <label for="username">Usuário:</label>
+        <input type="text" id="username" name="username" />
+      </div>
+      <div class="entrada">
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" />
+      </div>
+      <button type="submit">Login</button>
+    </form>
+  </body>
+</html>
